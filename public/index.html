@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Novena de Aguinaldos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #fdfbf7;
+            /* Crema suave */
+            touch-action: manipulation;
+            /* Disables double-tap to zoom */
+        }
+
+        h1,
+        h2,
+        h3,
+        .serif {
+            font-family: 'Merriweather', serif;
+        }
+
+        .prayer-text {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #374151;
+        }
+
+        .nav-item.active {
+            background-color: #b91c1c;
+            /* Rojo navidad */
+            color: white;
+        }
+
+        /* Animaciones suaves */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        /* Estilos de imagen */
+        .card-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        @media (min-width: 768px) {
+            .card-image {
+                width: 68%;
+            }
+        }
+
+        .container-image {
+            border-bottom: 4px solid #ea580c;
+        }
+
+        /* Efecto "Dulce" en las imágenes */
+        .sweet-filter {
+            filter: contrast(1.1) saturate(1.1);
+        }
+
+        /* --- TEMAS (Night Mode / High Contrast) --- */
+
+        /* Night Mode */
+        body.night-mode {
+            background-color: #1f2937;
+            /* gray-800 */
+            color: #fff;
+            /* gray-200 */
+        }
+
+        .night-mode #sidebar {
+            background-color: #111827;
+            /* gray-900 */
+            border-right-color: #374151;
+            /* gray-700 */
+        }
+
+        .night-mode .sidebar-title {
+            color: #d1d5db;
+            /* gray-300 */
+        }
+
+        .night-mode .nav-btn:hover {
+            background-color: #374151;
+            /* gray-700 */
+        }
+
+        .night-mode .nav-btn.active {
+            background-color: #7f1d1d;
+            /* red-900 */
+            color: #fca5a5;
+            /* red-200 */
+        }
+
+        .night-mode .bg-white {
+            background-color: #1f2937;
+            /* gray-800 */
+            color: #fff;
+            border-color: #374151;
+        }
+
+        .night-mode h1,
+        .night-mode h2,
+        .night-mode h3,
+        .night-mode h4 {
+            color: #f3f4f6;
+            /* gray-100 */
+        }
+
+        .night-mode .text-gray-600,
+        .night-mode .text-gray-700,
+        .night-mode .text-gray-800 {
+            color: #fff;
+            /* gray-300 */
+        }
+
+        .night-mode .bg-green-900 {
+            background-color: #111827;
+        }
+
+        .night-mode .bg-red-700 {
+            background-color: #7f1d1d;
+        }
+
+        /* Darker red header */
+        .night-mode .bg-red-100 {
+            background-color: #3f1d1d;
+            color: #fecaca;
+            border-color: #7f1d1d;
+        }
+
+        .night-mode .text-red-900,
+        .night-mode .text-red-800 {
+            color: #fecaca;
+        }
+
+        .night-mode .bg-yellow-50 {
+            background-color: #422006;
+            border-color: #713f12;
+            color: #fde047;
+        }
+
+        .night-mode .text-yellow-700 {
+            color: #fde047;
+        }
+
+        .night-mode .day-btn:hover {
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+
+        /* Night Mode Fixes for Prayer Cards (Contrast) */
+        .night-mode .bg-white-50,
+        .night-mode .bg-gray-50 {
+            background-color: #1f2937;
+            /* gray-800 */
+            border-width: 1px;
+            border-color: #374151;
+        }
+
+        .night-mode .text-green-800,
+        .night-mode .text-green-700,
+        .night-mode .group-hover\:text-green-700:hover {
+            color: #86efac;
+            /* green-300 */
+        }
+
+        .night-mode .text-blue-700,
+        .night-mode .text-blue-800 {
+            color: #93c5fd;
+            /* blue-300 */
+        }
+
+        /* Unify borders in dark mode to avoid jarring light borders */
+        .night-mode .border-red-200,
+        .night-mode .border-blue-200,
+        .night-mode .border-yellow-200,
+        .night-mode .border-green-200 {
+            border-color: #374151;
+            /* gray-700 */
+        }
+
+        /* High Contrast Mode */
+
+        .night-mode p {
+            color: #fff;
+        }
+
+        .night-mode .text-yellow-700 {
+            color: #fde047;
+        }
+
+        .night-mode .day-btn:hover {
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+
+        /* High Contrast Mode */
+        body.high-contrast {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .high-contrast #sidebar,
+        .high-contrast header {
+            background-color: #000000;
+            border: 2px solid #ffff00;
+        }
+
+        .high-contrast .nav-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .high-contrast .nav-btn:hover,
+        .high-contrast .nav-btn.active {
+            background-color: #ffff00;
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .high-contrast .nav-btn:hover span,
+        .high-contrast .nav-btn.active span {
+            color: #000 !important;
+        }
+
+        .high-contrast .nav-btn:hover svg,
+        .high-contrast .nav-btn.active svg {
+            stroke: #000 !important;
+        }
+
+
+        .high-contrast .bg-white,
+        .high-contrast .bg-red-100,
+        .high-contrast .bg-yellow-50,
+        .high-contrast .bg-white-50,
+        .high-contrast .bg-gray-50 {
+            background-color: #000000;
+            border: 4px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .high-contrast h1,
+        .high-contrast h2,
+        .high-contrast h3,
+        .high-contrast h4,
+        .high-contrast p,
+        .high-contrast span,
+        .high-contrast div {
+            color: #ffffff !important;
+        }
+
+        .high-contrast .text-yellow-500 {
+            color: #ffff00 !important;
+        }
+
+        .high-contrast .text-green-600,
+        .high-contrast .text-red-700,
+        .high-contrast .text-gray-600 {
+            color: #ffffff !important;
+        }
+
+        .high-contrast button {
+            border: 2px solid #ffff00;
+        }
+
+        .high-contrast svg {
+            stroke: #ffff00;
+        }
+    </style>
+</head>
+
+<body class="flex min-h-screen text-gray-800">
+
+    <!-- Sidebar / Menú de Navegación -->
+    <aside id="sidebar"
+        class="bg-green-900 text-white w-20 flex-shrink-0 hidden md:flex flex-col h-full transition-all duration-300 transform md:translate-x-0 fixed md:sticky md:top-0 md:h-screen z-20 border-r-4 border-yellow-500">
+        <div
+            class="p-4 border-b border-green-800 bg-green-950 sticky top-0 z-10 flex items-center justify-between h-16">
+            <h1
+                class="text-xl font-bold text-yellow-400 serif hidden sidebar-title transition-opacity duration-300 truncate">
+                Novena</h1>
+            <button onclick="toggleDesktopSidebar()"
+                class="p-2 text-yellow-400 hover:text-yellow-200 focus:outline-none mx-auto" id="desktop-toggle-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <nav class="flex-1 py-4 overflow-y-auto custom-scrollbar">
+            <button onclick="renderView('inicio')"
+                class="nav-btn w-full text-left px-6 py-4 hover:bg-green-800 flex items-center space-x-3 transition-colors active"
+                data-target="inicio">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+                <span class="nav-text hidden whitespace-nowrap text-lg">Inicio / Orden</span>
+            </button>
+
+            <div
+                class="px-6 py-2 text-xs font-semibold text-green-300 uppercase tracking-wider mt-4 nav-text hidden whitespace-nowrap">
+                Oraciones Diarias
+            </div>
+
+            <button onclick="renderView('todos-dias')"
+                class="nav-btn w-full text-left px-6 py-4 hover:bg-green-800 flex items-center space-x-3 transition-colors"
+                data-target="todos-dias">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                    <path
+                        d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                </svg>
+                <span class="nav-text hidden whitespace-nowrap text-lg">Todos los Días</span>
+            </button>
+            <button onclick="renderView('consideraciones')"
+                class="nav-btn w-full text-left px-6 py-4 hover:bg-green-800 flex items-center space-x-3 transition-colors"
+                data-target="consideraciones">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 2v4" />
+                    <path d="M16 2v4" />
+                    <path d="M3 10h18" />
+                    <path d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
+                </svg>
+                </svg>
+                <span class="nav-text hidden whitespace-nowrap text-lg">Consideraciones</span>
+            </button>
+            <button onclick="renderView('virgen')"
+                class="nav-btn w-full text-left px-6 py-4 hover:bg-green-800 flex items-center space-x-3 transition-colors"
+                data-target="virgen">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+                </svg>
+                </svg>
+                <span class="nav-text hidden whitespace-nowrap text-lg">A la Virgen</span>
+            </button>
+            <button onclick="renderView('san-jose')"
+                class="nav-btn w-full text-left px-6 py-4 hover:bg-green-800 flex items-center space-x-3 transition-colors"
+                data-target="san-jose">
+                <!-- Icono de Martillo (Carpintero) para San José -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m15 12-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9" />
+                    <path d="M17.64 15 22 10.64" />
+                    <path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25V7h-3.25c-.85 0-1.65-.33-2.25-.93L12 4.86" />
+                </svg>
+                </svg>
+                </svg>
+                <span class="nav-text hidden whitespace-nowrap text-lg">A San José</span>
+            </button>
+            <button onclick="renderView('gozos')"
+                class="nav-btn w-full text-left px-6 py-4 hover:bg-green-800 flex items-center space-x-3 transition-colors"
+                data-target="gozos">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="m9 12 2 2 4-4" />
+                </svg>
+                </svg>
+                <span class="nav-text hidden whitespace-nowrap text-lg">Gozos</span>
+            </button>
+            <button onclick="renderView('nino-jesus')"
+                class="nav-btn w-full text-left px-6 py-4 hover:bg-green-800 flex items-center space-x-3 transition-colors"
+                data-target="nino-jesus">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                </svg>
+                <span class="nav-text hidden whitespace-nowrap text-lg">Niño Jesús</span>
+            </button>
+            <button onclick="renderView('villancicos')"
+                class="nav-btn w-full text-left px-6 py-4 hover:bg-green-800 flex items-center space-x-3 transition-colors"
+                data-target="villancicos">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18V5l12-2v13" />
+                    <circle cx="6" cy="18" r="3" />
+                    <circle cx="18" cy="16" r="3" />
+                </svg>
+                </svg>
+                <span class="nav-text hidden whitespace-nowrap text-lg">Villancicos</span>
+            </button>
+        </nav>
+
+        <!-- Selector de Tema (Sticky Footer) -->
+        <div class="p-4 border-t border-green-800 bg-green-950 flex-shrink-0">
+            <div
+                class="text-xs font-bold text-green-300 uppercase tracking-wider mb-3 nav-text hidden whitespace-nowrap">
+                Apariencia</div>
+            <div id="theme-btn-container" class="flex items-center justify-around space-x-2">
+                <button onclick="setTheme('normal')"
+                    class="flex-1 flex flex-col items-center justify-center p-3 rounded-lg bg-green-900/50 hover:bg-green-800 border border-green-800 transition-all text-green-100"
+                    title="Normal">
+                    <span class="text-2xl mb-1">☀️</span>
+                    <span class="text-xs font-semibold nav-text hidden">Normal</span>
+                </button>
+                <button onclick="setTheme('night')"
+                    class="flex-1 flex flex-col items-center justify-center p-3 rounded-lg bg-green-900/50 hover:bg-green-800 border border-green-800 transition-all text-green-100"
+                    title="Modo Noche">
+                    <span class="text-2xl mb-1">🌙</span>
+                    <span class="text-xs font-semibold nav-text hidden">Noche</span>
+                </button>
+                <button onclick="setTheme('high-contrast')"
+                    class="flex-1 flex flex-col items-center justify-center p-3 rounded-lg bg-green-900/50 hover:bg-green-800 border border-green-800 transition-all text-green-100"
+                    title="Alto Contraste">
+                    <span class="text-2xl mb-1">👁️</span>
+                    <span class="text-xs font-semibold nav-text hidden">Alto C.</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Overlay para móvil -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 flex flex-col relative">
+
+        <!-- Header Móvil -->
+        <header
+            class="bg-red-700 text-white p-4 flex items-center justify-between md:hidden shadow-md z-20 sticky top-0">
+            <h1 class="font-bold text-lg serif">Novena de Aguinaldos</h1>
+            <button onclick="toggleSidebar()" class="p-2 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </header>
+
+        <!-- Área de Contenido Dinámico -->
+        <div id="content-area" class="flex-1 p-4 md:p-8 lg:p-12 pb-24 max-w-4xl mx-auto w-full">
+            <!-- El contenido se inyectará aquí con JS -->
+        </div>
+
+    </main>
+
+    <!-- Watermark -->
+    <div class="fixed bottom-1 right-2 md:bottom-2 md:right-4 z-50 pointer-events-none opacity-60">
+        <p class="text-[10px] md:text-xs text-gray-500 font-serif italic text-shadow-sm">Hecho con amor por la familia
+            Tapasco Zuñiga</p>
+    </div>
+
+    <!-- JavaScript Principal -->
+    <script>
+        // --- BASE DE DATOS DE CONTENIDO ---
+
+        // IMÁGENES SELECCIONADAS (Tema: Cali Dulce Navidad)
+        const IMAGES = {
+            // Macetas de Alfeñique: El dulce más tierno y tradicional de Cali.
+            intro: "./oracion-todos-los-dias.png",
+
+            hollyFamily: "./holly-family.png",
+
+            // Alumbrado de Cali: Luces que parecen dulces gigantes.
+            virgen: "./virgen-maria.png",
+
+            // San José y el Niño: Imagen clásica tierna (Guido Reni) - Reemplaza a Cristo Rey
+            sanJose: "./san-jose-bunuelo.png",
+
+            // Pesebre Tierno: Representación clásica.
+            nino: "./bebe-jesus.png",
+
+            // El Gato del Río: Ícono lúdico y tierno de Cali.
+            gozos: "./gozos.png",
+
+            // La Ermita: La iglesia            // Villancicos: Alegría musical.
+            villancicos: "./villancicos.png",
+
+            // Familia
+            family: "./family-1.png",
+            family2: "./family-2.png",
+            family3: "./family-3.png"
+        };
+
+        const DATA = {
+            oracionTodosDias: {
+                titulo: "Oración para Todos los Días",
+                imagen: IMAGES.intro,
+                texto: `<p class="mb-4">Benignísimo Dios de infinita caridad, que tanto amasteis a los hombres, que les disteis en vuestro Hijo la mejor prenda de vuestro amor, para que hecho hombre en las entrañas de una Virgen naciese en un pesebre para nuestra salud y remedio; yo, en nombre de todos los mortales, os doy infinitas gracias por tan soberano beneficio.</p>
+                <p class="mb-4">En retorno de él os ofrezco la pobreza, humildad y demás virtudes de vuestro Hijo humanado, suplicándoos por sus divinos méritos, por las incomodidades en que nació y por las tiernas lágrimas que derramó en el pesebre, que dispongáis nuestros corazones con humildad profunda, con amor encendido, con tal desprecio de todo lo terreno, para que Jesús recién nacido tenga en ellos su cuna y more eternamente.</p>
+                <p>Amén.</p>
+                <p class="mt-4 text-center italic text-sm text-gray-600">(Se reza tres veces el Gloria al Padre)</p>`
+            },
+            oracionVirgen: {
+                titulo: "Oración a la Santísima Virgen",
+                imagen: IMAGES.virgen,
+                texto: `<p class="mb-4">Soberana María, que por vuestras grandes virtudes y especialmente por vuestra humildad, merecisteis que todo un Dios os escogiese por madre suya, os suplico que vos misma preparéis y dispongáis mi alma y la de todos los que en este tiempo hiciesen esta novena, para el nacimiento espiritual de vuestro adorado Hijo.</p>
+                <p class="mb-4">¡Oh dulcísima madre!, comunicadme algo del profundo recogimiento y divina ternura con que lo aguardasteis vos, para que nos hagáis menos indignos de verle, amarle y adorarle por toda la eternidad.</p>
+                <p>Amén.</p>
+                <p class="mt-4 text-center italic text-sm text-gray-600">(Se reza nueve veces el Avemaría)</p>`
+            },
+            oracionSanJose: {
+                titulo: "Oración a San José",
+                imagen: IMAGES.sanJose,
+                texto: `<p class="mb-4">¡Oh santísimo José, esposo de María y padre putativo de Jesús! Infinitas gracias doy a Dios porque os escogió para tan altos ministerios y os adornó con todos los dones proporcionados a tan excelente grandeza. Os ruego, por el amor que tuvisteis al Divino Niño, me abracéis en fervorosos deseos de verle y recibirle sacramentalmente, mientras en su divina esencia le veo y le gozo en el cielo.</p>
+                <p>Amén.</p>
+                <p class="mt-4 text-center italic text-sm text-gray-600">(Se reza el Padrenuestro, el Avemaría y el Gloria)</p>`
+            },
+            gozosData: {
+                coro: "Dulce Jesús mío, mi niño adorado, ¡Ven a nuestras almas! ¡Ven no tardes tanto!",
+                imagen: IMAGES.gozos,
+                estrofas: [
+                    {
+                        texto: "¡Oh Sapiencia suma del Dios soberano, que a nivel de un niño te hayas rebajado! ¡Oh Divino Infante, ven para enseñarnos la prudencia que hace verdaderos sabios!",
+                        significado: "Celebra la sabiduría infinita de Dios que, siendo todopoderoso ('suma sapiencia'), elige por amor hacerse pequeño y frágil como un niño. Nos recuerda que la verdadera sabiduría no está en el poder, sino en la humildad y la sencillez."
+                    },
+                    {
+                        texto: "¡Oh Adonai potente que Moisés hablando, de Israel al pueblo diste los mandatos! ¡Ah, ven prontamente para rescatarnos, y que un niño débil muestre brazo fuerte!",
+                        significado: "'Adonai' es el nombre hebreo de Dios como Señor y Legislador. Esta estrofa recuerda el poder de Dios al dar la Ley a Moisés en el Sinaí, y contrasta ese poder aterrador con la tierna fuerza del Niño Jesús que viene a salvarnos no con truenos, sino con amor."
+                    },
+                    {
+                        texto: "¡Oh raíz sagrada de Jesé que en lo alto presentas al orbe tu fragante nardo! ¡Dulcísimo Niño que has sido llamado Lirio de los Valles, Bella flor del campo!",
+                        significado: "Jesé fue el padre del Rey David. Aquí se reconoce a Jesús como el fruto prometido de ese linaje real (la 'raíz'), cumpliendo las profecías. Se usan metáforas florales (nardo, lirio) para exaltar su belleza espiritual y pureza."
+                    },
+                    {
+                        texto: "¡Llave de David que abre al desterrado las cerradas puertas de regio palacio! ¡Sácanos, Oh Niño con tu blanca mano, de la cárcel triste que labró el pecado!",
+                        significado: "Jesús es la 'Llave' que tiene la autoridad para reabrir las puertas del Cielo (el 'regio palacio') que el pecado de la humanidad había cerrado. Es un clamor por la libertad espiritual y el perdón."
+                    },
+                    {
+                        texto: "¡Oh Lumbre de Oriente, sol de eternos rayos, que entre las tinieblas tu esplendor veamos! ¡Niño tan precioso, dicha del cristiano, luzca la sonrisa de tus dulces labios!",
+                        significado: "Se compara a Jesús con el sol naciente ('Oriente'). Así como el sol disipa la noche, Jesús llega para iluminar la oscuridad del mundo y de nuestras conciencias, trayendo la alegría ('dicha') de una nueva esperanza."
+                    },
+                    {
+                        texto: "¡Espejo sin mancha, santo de los santos, sin igual imagen del Dios soberano! ¡Borra nuestras culpas, salva al desterrado y en forma de niño, da al mísero amparo!",
+                        significado: "Jesús es el reflejo perfecto ('espejo') de la bondad de Dios Padre. Al llamarlo 'sin mancha', invocamos su pureza perfecta para que limpie nuestras propias manchas (culpas) y proteja a los desamparados."
+                    },
+                    {
+                        texto: "¡Rey de las naciones, Emmanuel preclaro, De Israel anhelo Pastor del rebaño! ¡Niño que apacientas con suave cayado ya la oveja arisca, ya el cordero manso!",
+                        significado: "Emmanuel significa 'Dios con nosotros'. Aquí se le ve como el Pastor Universal que une a todos los pueblos. Su liderazgo no es violento, sino suave, guiando tanto a los rebeldes ('oveja arisca') como a los fieles ('cordero manso')."
+                    },
+                    {
+                        texto: "¡Ábranse los cielos y llueva de lo alto bienhechor rocío como riego santo! ¡Ven hermoso Niño, ven Dios humanado! ¡Luce, hermosa estrella, brota flor del campo!",
+                        significado: "Basado en una profecía de Isaías (Rorate caeli). Pedimos que la salvación caiga del cielo como una lluvia suave ('rocío') que devuelve la vida a la tierra seca. Es la súplica de una humanidad sedienta de Dios."
+                    },
+                    {
+                        texto: "¡Ven, que ya María previene sus brazos, do su niño vean, en tiempo cercano! ¡Ven, que ya José, con anhelo sacro, se dispone a hacerse de tu amor sagrario!",
+                        significado: "Esta estrofa nos conecta con la emoción humana de María y José. Nos invita a imitar su ansiosa espera y preparación. Ellos son los primeros 'sagrarios' (lugares donde habita Dios) y modelos de acogida."
+                    },
+                    {
+                        texto: "¡Del débil auxilio, del doliente amparo, consuelo del triste, luz del desterrado! ¡Vida de mi vida, mi dueño adorado, mi constante amigo, mi divino hermano!",
+                        significado: "Una declaración íntima de lo que Jesús significa para el creyente: ayuda en la debilidad, consuelo en la tristeza y, sobre todo, un 'divino hermano' que se hace cercano a nuestro sufrimiento."
+                    },
+                    {
+                        texto: "¡Ven ante mis ojos, de ti enamorados! ¡Bese ya tus plantas! ¡Bese ya tus manos! ¡Prosternado en tierra, te tiendo los brazos, y aún más que mis frases, te dice mi llanto!",
+                        significado: "Es el clímax emocional de la oración. Expresa un deseo profundo de adoración física y entrega total. Las lágrimas aquí no son de tristeza, sino de emoción incontenible por el encuentro con lo Divino."
+                    },
+                    {
+                        texto: "Niño del pesebre, nuestro Dios y hermano, tú sabes y entiendes del dolor humano; que cuando suframos dolores y angustias, siempre recordemos que nos has salvado.",
+                        significado: "Resalta la cercanía de Jesús con el sufrimiento humano. Al hacerse hombre, Dios no es ajeno a nuestro dolor, sino que lo comparte y nos da esperanza en los momentos de angustia."
+                    },
+                    {
+                        texto: "Bajaste del cielo, te hiciste un esclavo, para liberarnos de toda opresión. Todos somos hijos del Padre celeste y todos hermanos: familia de Dios.",
+                        significado: "Enfatiza la igualdad fundamental de todos los seres humanos. Al hacerse 'esclavo' (servidor), Jesús rompe las cadenas de la opresión y nos recuerda que nuestra mayor dignidad es ser hijos de un mismo Padre."
+                    },
+                    {
+                        texto: "Haz de nuestra patria una gran familia; siembra en nuestro suelo tu amor y tu paz. Danos fe en la vida, danos esperanza y un amor sincero que nos una más.",
+                        significado: "Una oración patriótica por la unidad nacional. Pide sanar las divisiones del país ('nuestro suelo') a través de las virtudes teologales: fe, esperanza y caridad (amor sincero)."
+                    },
+                    {
+                        texto: "Tú te hiciste niño en una familia llena de ternura y calor humano. Vivan los hogares, aquí congregados, el gran compromiso del amor cristiano.",
+                        significado: "Exalta el valor de la familia como núcleo de la sociedad y de la fe. Bendice a los hogares presentes y les recuerda que su misión principal es vivir y transmitir el amor cristiano."
+                    },
+                    {
+                        texto: "¡Ven Salvador nuestro por quien suspiramos. ¡Ven a nuestras almas, Ven no tardes tanto!",
+                        significado: "El resumen final de la Novena. Toda la historia humana y el deseo personal se condensan en este último suspiro: la necesidad urgente de que el Salvador venga a habitar en nosotros."
+                    }
+                ]
+            },
+            oracionNino: {
+                titulo: "Oración al Niño Jesús",
+                imagen: IMAGES.nino,
+                texto: `<p class="mb-4">Acordaos, ¡oh dulcísimo Niño Jesús!, que dijisteis a la venerable Margarita del Santísimo Sacramento, y en persona suya a todos vuestros devotos, estas palabras tan consoladoras para nuestra pobre humanidad agobiada y doliente: "Todo lo que quieras pedir, pídelo por los méritos de mi infancia y nada te será negado".</p>
+                <p class="mb-4">Llenos de confianza en vos, ¡oh Jesús!, que sois la misma verdad, venimos a exponeros toda nuestra miseria. Ayúdanos a llevar una vida santa, para conseguir una eternidad bienaventurada. Concédenos por los méritos infinitos de vuestra encarnación y de vuestra infancia, la gracia de la cual necesitamos tanto.</p>
+                <p class="mb-4">Nos entregamos a vos, ¡oh Niño omnipotente!, seguros de que no quedará frustrada nuestra esperanza, y de que en virtud de vuestra divina promesa, acogeréis y despacharéis favorablemente nuestra súplica.</p>
+                <p>Amén.</p>`
+            },
+            dias: [
+                {
+                    dia: 1, fecha: "16 de Diciembre", titulo: "Día Primero", subtitulo: "El Verbo Eterno", texto: `En el principio de los tiempos
+el Verbo reposaba en el seno de
+su Padre en lo más alto de los
+cielos; allí era la causa, a la par
+que el modelo de toda la creación.
+En esas profundidades de una
+incalculable eternidad permanecía
+el Niño de Belén antes de que se
+dignara bajar a la tierra y tomara
+visiblemente posesión de la gruta
+de Belén. Allí es donde debemos
+buscar sus principios que jamás
+han comenzado; de allí debemos
+datar la genealogía de lo eterno,
+que no tiene antepasados y
+contemplar la vida de complacencia
+infinita que allí llevaba.
+La vida del Verbo eterno en el
+seno de su Padre era una vida
+maravillosa y sin embargo,
+¡misterio sublime!, busca otra
+morada, una mansión creada. No
+era porque en su mansión eterna
+faltase algo a su infinita felicidad,
+sino porque su misericordia
+infinita anhelaba la redención y
+la salvación del género humano,
+que sin Él no podría verificarse.
+El pecado de Adán había ofendido a
+Dios y esa ofensa infinita no podía
+ser condonada sino por los méritos
+del mismo Dios. La raza de Adán
+había desobedecido y merecido un
+castigo eterno; era pues necesario
+para salvarla y satisfacer su
+culpa, que Dios, sin dejar el cielo,
+tomase la forma del hombre sobre
+la tierra y con la obediencia a los
+designios de su Padre expiase
+aquella desobediencia, ingratitud y
+rebeldía. Era necesario, en las miras
+de su amor, que tomase la forma,
+las debilidades e ignorancias
+sistemáticas del hombre; que
+creciese para darle crecimiento
+espiritual; que sufriese, para
+enseñarle a morir a sus pasiones
+y a su orgullo. Y por eso el Verbo
+eterno, ardiendo en deseos de salvar
+al hombre, resolvió hacerse hombre
+también y así redimir al culpable.` },
+                {
+                    dia: 2, fecha: "17 de Diciembre", titulo: "Día Segundo", subtitulo: "La Encarnación", texto: `El verbo eterno se halla a punto de
+tomar su naturaleza creada en la
+santa casa de Nazaret, en donde
+moraban María y José. Cuando la
+sombra del decreto divino vino a
+deslizarse sobre ella, María estaba
+sola y engolfada en la oración.
+Pasaba las silenciosas horas de la
+noche en la unión más estrecha
+con Dios; y mientras oraba, el Verbo
+tomó posesión de su morada creada.
+Sin embargo, no llegó
+inopinadamente: antes de
+presentarse envió a un mensajero,
+que fue el Arcángel San Gabriel para
+pedir a María de parte de Dios su
+consentimiento para la encarnación.
+El creador no quiso efectuar ese
+gran misterio sin la aquiescencia de
+su criatura.
+Aquel momento fue muy solemne:
+era potestativo en María rehusar...
+Con qué adorables delicias, con qué
+inefable complacencia aguardaría
+la Santísima Trinidad a que María
+abriese los labios y pronunciase el
+“sí” que debió ser suave melodía
+para sus oídos, y con el cual se
+conformaba su profunda humildad
+a la omnipotente voluntad divina.
+La Virgen Inmaculada ha dado
+su asentimiento. El arcángel ha
+desaparecido. Dios se ha revestido
+de una naturaleza creada; la
+voluntad eterna está cumplida y la
+creación completa. En las regiones
+del mundo angélico estalla el júbilo
+inmenso, pero la Virgen María
+ni le oía ni le hubiese prestado
+atención a él. Tenía inclinada la
+cabeza y su alma estaba sumida
+en el silencio que se asemejaba al
+de Dios. El Verbo se había hecho
+carne, y aunque todavía invisible
+para el mundo, habitaba ya entre
+los hombres que su inmenso
+amor había venido a rescatar.
+No era ya solo el Verbo eterno,
+era el Niño Jesús revestido de la
+apariencia humana, y justificando ya
+el elogio que de Él han hecho todas
+las generaciones en llamarle el más
+hermoso de los hijos de los hombres.` },
+                {
+                    dia: 3, fecha: "18 de Diciembre", titulo: "Día Tercero", subtitulo: "El Niño en el Seno de María", texto: `Así había comenzado su vida
+encarnada el Niño Jesús.
+Consideremos el alma gloriosa y el
+santo cuerpo que había tomado,
+adorándolos profundamente.
+Admirado en el primer lugar
+en el alma de ese Divino Niño,
+considerarnos en ella la plenitud
+de su gracia santificadora; la de su
+ciencia beatífica, por lo cual desde
+el primer momento de su vida vio la
+divina esencia más claramente que
+todos los ángeles y leyó lo pasado
+y lo por venir con todos sus arcanos
+conocimientos. No supo por
+adquisición nada que no supiese
+por infusión desde el primer
+momento de su ser, pero Él adoptó
+todas las enfermedades de nuestra
+naturaleza a que dignamente podía
+someterse, aun cuando no fuese
+necesario para la grande obra
+que debía cumplir. Pidámosle que
+sus divinas facultades suplan la
+debilidad de las nuestras y les den
+nueva energía; que su memoria nos
+enseñe a recordar sus beneficios,
+su entendimiento a pensar en Él, su
+voluntad a no hacer sino lo que Él
+quiere y en servicio suyo.
+Del alma del Niño Jesús pasemos
+ahora a su cuerpo, que era un
+mundo de maravillas, una obra
+maestra de la mano de Dios. No era,
+como el nuestro, una traba para el
+alma; era, por el contrario, un nuevo
+elemento de
+santidad. Quiso
+que fuese
+pequeño y débil
+como el de los
+niños, y sujeto
+a todas las
+incomodidades
+de la
+infancia, para
+asemejarse más a nosotros
+y participar de nuestras
+humillaciones. El Espíritu Santo
+formó ese cuerpecillo divino con
+tal delicadeza y tal capacidad de
+sentir, que pudiese sufrir el exceso
+para cumplir la grande obre de
+nuestra redención.
+La belleza de ese cuerpo divino fue
+superior a cuanto se ha imaginado
+jamás; la divina sangre que por sus
+venas empezó a circular desde el
+momento de la encarnación es la
+que lava todas las manchas del
+mundo culpable.
+Pidámosle que lave las nuestra en
+el sacramento de la penitencia,
+para que el día de su Navidad nos
+encuentre purificados, perdonados
+y dispuestos a recibirle con amor y
+provecho espiritual.` },
+                {
+                    dia: 4, fecha: "19 de Diciembre", titulo: "Día Cuarto", subtitulo: "La Humildad de Jesús", texto: `Desde el seno de su madre
+comenzó el Niño Jesús a poner
+en práctica su entera sumisión a
+Dios, que continuó sin la menor
+interrupción durante toda su vida.
+Adoraba a su Eterno Padre, le
+amaba, se sometía a su voluntad,
+aceptaba con resignación el estado
+en que se hallaba conociendo toda
+su debilidad, toda su humillación,
+todas sus incomodidades.
+¿Quién de nosotros quisiera
+retroceder a un estado semejante
+con el pleno goce de la razón y
+de la reflexión?, ¿quién pudiera
+sostener a sabiendas un martirio
+tan prolongado, tan penoso de
+todas maneras?. Por ahí entró
+el Divino Niño en su dolorosa y
+humilde carrera; así empezó a
+anonadarse delante de su Padre,
+a enseñarnos lo que Dios merece
+por parte de su criatura, a expiar
+nuestro orgullo, origen de todos
+nuestros pecados, y hacemos
+sentir toda la criminalidad
+y desórdenes del orgullo.
+Deseamos hacer una verdadera
+oración; empecemos por
+formarnos de ella una exacta idea
+contemplando al Niño en el seno
+de su madre, El Divino Niño ora
+y ora del modo más excelente.
+No habla, no medita ni se deshace
+en tiernos afectos. Su mismo
+estado, aceptado con la intención
+de honrar a Dios, es su oración y
+ese estado expresa altamente todo
+lo que Dios merece y de qué modo
+quiere ser adorado por nosotros.
+Unámonos a las oraciones del
+Niño Dios en el seno de María,
+unámonos al profundo abatimiento
+y sea este el primer afecto de
+nuestro sacrificio a Dios. Démonos
+a Dios, no para ser algo como lo
+pretende continuamente nuestra
+vanidad, sino para ser nada, para
+quedar eternamente consumidos
+y anonadados, para renunciar
+a la estimulación de nosotros
+mismos, a todo cuidado de nuestra
+grandeza aunque sea espiritual,
+a todo movimiento de vanagloria.
+Desaparezcamos a nuestros propios
+ojos y que Dios sólo sea todo para
+nosotros.` },
+                {
+                    dia: 5, fecha: "20 de Diciembre", titulo: "Día Quinto", subtitulo: "La Vida de María", texto: `Ya hemos visto la vida que llevaba
+el Niño Jesús en el seno de su
+purísima Madre; veamos hoy
+toda la vida que llevaba también
+María durante el mismo espacio
+de tiempo. Necesidad hoy de que
+no tengamos en ella si queremos
+comprender, en cuanto es posible
+a nuestra limitada capacidad,
+los sublimes misterios de la
+encarnación y el modo como hemos
+de corresponder a ellos.
+María no cesaba de aspirar por el
+momento en que gozaría de esa
+visión beatífica terrestre; la faz de
+Dios encarnado. Estaba a punto de
+ver aquella faz humana que debía
+iluminar el cielo durante toda la
+eternidad, iba a leer el amor filial
+en aquellos mismos ojos cuyos
+rayos deberían esparcir para
+siempre la felicidad en millones
+de elegidos. Iba a ver aquel rostro
+todos los días, a todas horas, cada
+instante, durante muchos años. Iba
+a verle en la ignorancia aparente
+de la infancia, en los encantos
+particulares de la juventud y en
+la serenidad reflexiva de la edad
+madura... Haría todo lo que quisiese
+de aquella faz divina; podría
+estrecharla contra la suya con toda
+la libertad del amor materno; cubrir
+de besos los labios que deberían
+pronunciar la sentencia a todos los
+hombres; contemplarla a su gusto
+durante su sueño o despierta,
+hasta que la hubiese aprendido de
+memoria...¡Cuán ardientemente
+deseaba ese día!
+Tal era la expectativa de María...
+era inaudita en sí misma, mas
+no por eso dejaba de ser el tipo
+magnífico de toda la vida cristiana.
+No nos contentemos con admirar a
+Jesús residiendo en María, sino por
+esencia, potencia y presencia.
+Sí, Jesús nace continuamente
+en nosotros y de nosotros, por
+las buenas obras que nos hace
+capaces de cumplir y por nuestra
+cooperación a la gracia; de manera
+que el alma del que se halla en
+gracia es un seno perpetuo de
+María, un Belén interior sin fin.
+Después de la comunión, Jesús
+habita en nosotros durante algunos
+instantes, real y sustancialmente
+como Dios y como hombre, porque
+el mismo Niño que estaba en María
+está también en el Santísimo
+Sacramento. ¿Qué es todo esto
+sino una participación de la vida
+de María durante esos maravillosos
+meses, y una expectativa llena de
+delicias como la suya?` },
+                {
+                    dia: 6, fecha: "21 de Diciembre", titulo: "Día Sexto", subtitulo: "El Viaje a Belén", texto: `Jesús había sido concebido en
+Nazaret, domicilio de José y
+María, y allí era de creerse que
+había de nacer, según todas las
+probabilidades. Mas Dios lo tenía
+dispuesto de otra manera y los
+profetas habían anunciado que el
+mesías nacería en Belén de Judá,
+ciudad de David.
+Para que se cumpliese esa
+predicción, Dios se sirvió de
+un medio que no parecía tener
+ninguna relación con este objeto,
+a saber la orden dada por el
+emperador Augusto, que todos los
+súbditos del imperio romano se
+empadronasen en el lugar de donde
+eran originarios. María y José, como
+descendientes que eran de David,
+no estaban dispensados de ir a
+Belén. Ni la situación de la Virgen
+Santísima ni la necesidad en que
+estaba José del trabajo diario que
+les aseguraba la subsistencia, pudo
+eximirles de este largo y penoso
+viaje, en la estación más rigurosa e
+incómoda del año.
+No ignora Jesús en qué lugar debe
+nacer e inspira a sus padres que
+se entreguen a la Providencia, y
+que de esta manera concurran
+inconscientemente a la ejecución
+de los designios. Almas interiores,
+observad este manejo del Divino
+Niño, porque es el más importante
+de la vida espiritual; aprended que
+quien se haya entregado a Dios ya
+no ha de pertenecerse a sí mismo,
+ni ha de querer a cada instante
+sino lo que Dios quiera para él;
+siguiéndole ciegamente aun en
+las cosas exteriores, tales como el
+cambio de lugar donde quiera que le
+plazca conducirle. Ocasión tendréis
+de observar esta dependencia y
+fidelidad inviolable en toda la vida
+de Jesucristo, y este es el punto
+sobre el cual se han esmerado en
+imitarle los santos y las almas
+verdaderamente interiores,
+renunciando absolutamente a su
+propia voluntad.` },
+                {
+                    dia: 7, fecha: "22 de Diciembre", titulo: "Día Séptimo", subtitulo: "La Llegada a Belén", texto: `Representémonos el viaje de
+María y José hacia Belén, llevando
+consigo, aún no nacido, al Creador
+del universo hecho hombre.
+Contemplemos la humanidad y la
+obediencia de este Divino Niño que
+aunque de raza judía y habiendo
+amado durante siglos a su pueblo
+con una predilección inexplicable,
+obedece así a un príncipe extranjero
+que forma el censo de población de
+su provincia, como si hubiese para
+Él en esa circunstancia algo que le
+halagase, y quisiese apresurarse a
+aprovechar la ocasión de hacerse
+empadronar oficial y auténticamente
+como súbdito en el momento en
+el que venía al mundo. ¿No es
+extraño que la humillación, que
+causa tan invencible repugnancia
+a la criatura, parezca ser la única
+cosa creada que tenga atractivos
+para el Creador? ¿No nos enseñará
+la humildad de Jesús a amar esa
+hermosa virtud?.
+¡Ah...!Que llegue el
+momento en que aparezca
+el deseado de las naciones,
+porque todo clama por
+este feliz acontecimiento,
+El mundo, sumido en la
+oscuridad y el malestar
+buscando y no encontrando
+el alivio de sus males,
+suspira por su Libertador.
+El anhelo de José, la
+expectativa de María, son cosa
+que no puede expresar el lenguaje
+humano. El Padre Eterno se halla,
+si es lícito emplear esta expresión
+adorablemente impaciente por dar
+a su Hijo único al mundo, y verle
+ocupar su puesto entre las criaturas
+visibles.
+El Espíritu Santo arde en deseos
+de presentar a la luz del día esta
+santa humanidad tan bella que El
+mismo ha formado con tan especial
+y divino esmero. En cuando al
+Divino Niño, objeto de tantos
+anhelos, recordemos que hacia
+nosotros avanza lo mismo que hacia
+Belén. Apresuremos con nuestro
+deseo el momento de su llegada,
+purifiquemos nuestras almas para
+que sean su mística morada, y
+nuestros corazones para que sean su
+Manis terrenal, que nuestros actos
+de mortificación desprendimiento
+“preparen los caminos del Señor y
+hagan rectos sus senderos”.` },
+                {
+                    dia: 8, fecha: "23 de Diciembre", titulo: "Día Octavo", subtitulo: "La Búsqueda de Posada", texto: `Llegan a Belén José y María,
+buscando hospedaje en los
+mesones; pero no lo encuentran
+ya por hallarse todo ocupado, ya
+porque se les desechase a causa de
+su pobreza. Empero, puede turbar
+la paz interior de los que están
+fijos en Dios. Si José experimentaba
+sorpresa cuando era rechazado
+de casa en casa, porque pensaba
+en María y en el Niño, sonríase
+también con tanta tranquilidad
+cuando fijaba sus miradas en
+su casta esposa. El niño aún no
+nacido regocijábase de aquellas
+negativas que eran el preludio de
+sus humillaciones venideras. Cada
+voz áspera, el nido de cada puerta
+que se cerraba ante ellos, era lo
+que había venido a buscar. El deseo
+de esas humillaciones era lo que
+había contribuido a hacerle tomar
+la forma humana.
+¡Oh Divino Niño de Belén! Estos
+días que tantos han pasado en
+fiestas y diversiones o descansando
+muellemente en cómodas y ricas
+mansiones, han sido para vuestros
+padres un día de fatiga y vejaciones
+de toda clase. ¡Ay! El espíritu de Belén
+es el de un mundo que ha olvidado
+a Dios. ¡Cuántas veces no ha sido
+también el nuestro! ¿No cerramos
+continuamente con ruda ignorancia
+la puerta a los llamamientos de
+Dios, que nos solicita convertirnos,
+o santificarnos o conformarnos con
+su voluntad? ¿No hacemos mal uso
+de nuestras penas, desconociendo
+su carácter celestial con que cada
+uno a su modo lo lleva grabado en
+si? Dios viene a nosotros muchas
+veces en la vida, pero no conocemos
+su faz, o le reconocemos hasta que
+nos vuelve la espalda y se aleja
+después de nuestra negativa.
+Se pone el sol de 24 de diciembre
+detrás de los tejados de Belén y
+sus últimos rayos doran las cimas
+de las rocas escarpadas que lo
+rodean. Hombres groseros codean
+rudamente al Señor en las calles de
+aquella aldea oriental, y cierran sus
+puertas al ver a su madre, la bóveda
+de los cielos aparece purpurina
+por encima de aquellas colinas
+frecuentadas por los pastores. Las
+estrellas van apareciendo una tras
+otra. Algunas horas más y aparecerá
+el Verbo eterno.` },
+                {
+                    dia: 9, fecha: "24 de Diciembre", titulo: "Día Noveno", subtitulo: "El Nacimiento de Jesús", texto: `La noche ha cerrado del todo en
+las campiñas de Belén. Desechados
+por los hombres, y viéndose sin
+abrigo, María y José han salido
+de la inhospitalaria población y
+se han refugiado en una gruta
+que se encontraba al pie de la
+colina. Seguía a la reina de los
+ángeles el jumento que le había
+servido de humilde cabalgadura
+durante el viaje, y en aquella cueva
+hallaron un manso buey, dejado
+allí probablemente por alguno de
+los caminantes que habían ido a
+buscar hospedaje en la ciudad.
+El Divino Niño, desconocido por
+sus criaturas racionales, va a tener
+que acudir a loas irracionales para
+que calienten con su tibio aliento
+la atmósfera helada de esa noche
+de invierno, y le manifiesten con
+esto y con su humilde actitud el
+respeto y la adoración que le había
+negado Belén. La rojiza linterna
+que José tiene en la mano ilumina
+tenuemente ese pobrísimo recinto,
+ese pesebre lleno de paja que es
+figura profética de las maravillas
+del altar, y de la íntima y prodigiosa
+unión eucarística que Jesús ha
+de contraer con los hombres.
+María está en adoración en medio
+de la gruta, y así van pasando
+silenciosamente las horas de esa
+noche llena de misterio.
+Pero ha llegado la medianoche,
+y de repente vemos dentro de
+ese pesebre, poco antes vacío, al Divino Niño esperado, vaticinado,
+deseado durante cuatro mil años
+con inefable anhelo.
+A sus pies se postra su Santísima
+Madre, en los transportes de una
+adoración de la cual nada puede dar
+idea. José también se acerca y le
+rinde el homenaje con que inaugura
+su misterioso e imponderable oficio
+de padre adoptivo del Redentor de
+los hombres.
+La multitud de ángeles que
+desciende de los cielos a contemplar
+esa maravilla sin par, dejan estallar
+su alegría y hacen vibrar en los
+aires las armonías de ese Gloria
+in Excelsis que es el eco de la
+adoración que se produce en torno
+del Altísimo, hecha perceptible
+por un instante a los oídos de la
+pobre tierra. Convocados por ellos,
+vienen en tropel los pastores de la
+comarca a adorar al recién nacido y
+presentarle sus humildes ofrendas.
+Ya brilla en oriente la misteriosa
+estrella de Jacob, y ya se pone en
+marcha hacia Belén la caravana
+espléndida de los Reyes Magos,
+que dentro de pocos días vendrán
+a depositar a los pies del Divino
+Niño el oro, el incienso, y la mirra,
+que son símbolos de la caridad, la
+adoración y la mortificación.
+¡Oh adorado Niño! Nosotros
+también, los que hemos hecho
+esta novena para prepararnos al
+día de vuestra Navidad, queremos
+ofreceros nuestra pobre adoración.
+¡No la rechacéis! ¡Ven a nuestras
+almas, venid a nuestros corazones
+llenos de amor!
+Encended en ellos la devoción
+a vuestra santa infancia, no
+intermitente y sólo circunscrita
+al tiempo de vuestra Navidad,
+sino siempre y en todos los
+tiempos; devoción que fielmente
+practicada y celosamente
+propagada, nos conduzca a la vida
+eterna, librándonos del pecado
+y sembrando nosotros todas las
+virtudes cristianas.` }
+            ],
+            villancicos: [
+                {
+                    titulo: "Tutaina",
+                    letra: `(Coro)
+                    Tutaina tuturuma
+                    Tutaina tuturumaina
+                    Tutaina tuturuma, turuma
+                    Tutaina tuturumaina.
+                    
+                    Los pastores de Belén
+                    Vienen a adorar al Niño;
+                    La Virgen y San José
+                    Los reciben con cariño.
+                    (Coro)
+                    
+                    Tres reyes vienen también
+                    Con incienso, mirra y oro,
+                    A ofrendar a Dios su Bien
+                    Como el más grande tesoro.
+                    (Coro)`
+                },
+                {
+                    titulo: "Anton Tiruliru Liru",
+                    letra: `(Coro)
+                    Antón tiruliru liru
+                    Antón tiruliru la
+                    Antón tiruliru liru
+                    Antón tiruliru la
+                    
+                    Jesús al pesebre
+                    Vamos a adorar
+                    Jesús al pesebre
+                    Vamos a adorar.
+                    
+                    Duérmete Niño chiquito
+                    Que la noche viene ya;
+                    Cierra pronto tus ojitos
+                    Que el viento te arrullará.
+                    (Coro)`
+                },
+                {
+                    titulo: "Los Peces en el Río",
+                    letra: `La Virgen se está peinando
+                    Entre cortina y cortina
+                    Los cabellos son de oro
+                    Y el peine de plata fina.
+                    
+                    (Coro)
+                    Pero mira cómo beben los peces en el río
+                    Pero mira cómo beben por ver al Dios nacido
+                    Beben y beben y vuelven a beber
+                    Los peces en el río por ver a Dios nacer.`
+                },
+                {
+                    titulo: "Mi Burrito Sabanero",
+                    letra: `Con mi burrito sabanero, voy camino de Belén
+                    Con mi burrito sabanero, voy camino de Belén
+                    
+                    Si me ven, si me ven, voy camino de Belén
+                    Si me ven, si me ven, voy camino de Belén
+                    
+                    El lucerito mañanero ilumina mi sendero
+                    El lucerito mañanero ilumina mi sendero
+                    
+                    Si me ven, si me ven, voy camino de Belén
+                    Si me ven, si me ven, voy camino de Belén
+                    
+                    (Coro)
+                    Tuqui tuqui tuqui tuqui, Tuqui tuqui tuqui ta
+                    Apúrate mi burrito que ya vamos a llegar
+                    Tuqui tuqui tuqui tuqui, Tuqui tuqui tuqui ta
+                    Apúrate mi burrito vamos a ver a Jesús.`
+                }
+            ]
+        };
+
+        // --- LÓGICA DE LA APP ---
+        let currentGozoIndex = 0; // State for Gozos Carousel
+        let isDesktopExpanded = false;
+
+        function toggleDesktopSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const titles = document.querySelectorAll('.sidebar-title');
+            const texts = document.querySelectorAll('.nav-text');
+            const toggleBtn = document.getElementById('desktop-toggle-btn');
+            const themeContainer = document.getElementById('theme-btn-container');
+
+            isDesktopExpanded = !isDesktopExpanded;
+
+            if (isDesktopExpanded) {
+                // Expand
+                sidebar.classList.remove('w-20');
+                sidebar.classList.add('w-64');
+
+                titles.forEach(t => t.classList.remove('hidden'));
+                texts.forEach(t => t.classList.remove('hidden'));
+
+                toggleBtn.classList.remove('mx-auto'); // Move button to side when expanded
+
+                // Footer Layout: Row
+                themeContainer.classList.remove('flex-col', 'space-y-2');
+                themeContainer.classList.add('flex-row', 'space-x-2');
+
+            } else {
+                // Collapse
+                sidebar.classList.add('w-20');
+                sidebar.classList.remove('w-64');
+
+                titles.forEach(t => t.classList.add('hidden'));
+                texts.forEach(t => t.classList.add('hidden'));
+
+                toggleBtn.classList.add('mx-auto'); // Center button when collapsed
+
+                // Footer Layout: Column (Stack)
+                themeContainer.classList.remove('flex-row', 'space-x-2');
+                themeContainer.classList.add('flex-col', 'space-y-2');
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobile-overlay');
+            const titles = document.querySelectorAll('.sidebar-title');
+            const texts = document.querySelectorAll('.nav-text');
+            const themeContainer = document.getElementById('theme-btn-container');
+
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('translate-x-0');
+
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('flex');
+                overlay.classList.add('hidden');
+            } else {
+                sidebar.classList.add('flex');
+                overlay.classList.remove('hidden');
+                sidebar.classList.remove('-translate-x-full');
+
+                // Ensure correct mobile width and visibility
+                sidebar.classList.remove('w-20');
+                sidebar.classList.add('w-64');
+                titles.forEach(t => t.classList.remove('hidden'));
+                texts.forEach(t => t.classList.remove('hidden'));
+
+                // Ensure Footer is Row on Mobile
+                themeContainer.classList.remove('flex-col', 'space-y-2');
+                themeContainer.classList.add('flex-row', 'space-x-2');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const themeContainer = document.getElementById('theme-btn-container');
+
+            if (window.innerWidth < 768) {
+                // Mobile Init
+                sidebar.classList.add('hidden');
+                sidebar.classList.add('-translate-x-full');
+            } else {
+                // Desktop Init (Collapsed by default)
+                // Ensure Footer is Column
+                if (themeContainer) {
+                    themeContainer.classList.remove('flex-row', 'space-x-2');
+                    themeContainer.classList.add('flex-col', 'space-y-2');
+                }
+            }
+            // renderView('inicio'); // Removed to avoid conflict with hash navigation
+        });
+
+        function setActiveButton(targetId) {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.dataset.target === targetId) {
+                    btn.classList.add('active', 'bg-red-700', 'text-white');
+                    btn.classList.remove('hover:bg-green-800');
+                } else {
+                    btn.classList.remove('active', 'bg-red-700', 'text-white');
+                    btn.classList.add('hover:bg-green-800');
+                }
+            });
+
+            if (window.innerWidth < 768) {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('mobile-overlay');
+
+                // Hide sidebar on navigation
+                sidebar.classList.add('hidden');
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('flex');
+                overlay.classList.add('hidden');
+
+                // Reset to collapsed state for next toggle? 
+                // No, toggleSidebar handles the "opening" logic correctly now.
+            }
+        }
+
+        function updateHash(hash) {
+            if (history.pushState) {
+                history.pushState(null, null, hash);
+            } else {
+                location.hash = hash;
+            }
+        }
+
+        let currentRenderedView = null;
+
+        function renderView(viewId, skipHash = false) {
+            // Prevent redundant renders if coming from hash change (system event)
+            if (skipHash && viewId === currentRenderedView) {
+                return;
+            }
+
+            currentRenderedView = viewId;
+            const contentArea = document.getElementById('content-area');
+            setActiveButton(viewId);
+            contentArea.innerHTML = '';
+
+            if (!skipHash) {
+                let hash = '#' + viewId;
+                if (viewId === 'consideraciones') {
+                    // Default to day 1 (index 0) if just rendering view, but rely on renderDayContent to update precise hash
+                    // actually, we might want to wait for renderDayContent to set the hash. 
+                    // But if we just click the menu, it goes to day 1.
+                    hash = '#dia-1';
+                } else if (viewId === 'gozos') {
+                    // Default to gozo 1
+                    hash = '#gozo-1';
+                } else if (viewId === 'inicio') {
+                    hash = '#inicio';
+                } else if (viewId === 'todos-dias') {
+                    hash = '#oracion-todos';
+                } else if (viewId === 'virgen') {
+                    hash = '#oracion-virgen';
+                } else if (viewId === 'san-jose') {
+                    hash = '#oracion-san-jose';
+                } else if (viewId === 'nino-jesus') {
+                    hash = '#oracion-nino';
+                }
+
+                updateHash(hash);
+            }
+
+            let html = '';
+
+            switch (viewId) {
+                case 'inicio':
+                    html = `
+                        <div class="text-center fade-in space-y-8">
+                             <div class="bg-white-50 p-8 rounded-xl border-2 border-red-100 shadow-sm relative overflow-hidden">
+                                <!-- Image Header for Intro -->
+                                <div class="absolute inset-0 z-0 opacity-10">
+                                    <img src="${IMAGES.hollyFamily}" class="w-full h-full object-cover sweet-filter">
+                                </div>
+                                <div class="relative z-10">
+                                    <h2 class="text-3xl md:text-5xl text-red-700 font-bold mb-4 serif">Novena de Aguinaldos</h2>
+                                    <p class="text-lg text-gray-600 mb-6">Tradición, Familia y Amor</p>
+                                    <div class="flex justify-center my-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                    </div>
+                                    <p class="max-w-xl mx-auto text-gray-700">Bienvenido a esta guía digital para rezar la Novena. Utiliza el menú para navegar por las oraciones en el orden tradicional.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Family Dedication -->
+                            <div class="mt-8 bg-yellow-50 p-6 rounded-xl border border-red-100 text-center shadow-inner">
+                                <div class="max-w-md mx-auto">
+                                     <img src="${IMAGES.family}" class="w-full h-auto rounded-lg shadow-md mb-4 transform hover:scale-105 transition-transform duration-300" alt="Familia Tapasco Zuñiga">
+                                     <p class="text-gray-600 font-serif italic text-lg">Hecho con amor por la familia Tapasco Zuñiga</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                                <div class="bg-white p-6 rounded-lg shadow border-l-4 border-green-600">
+                                    <h3 class="font-bold text-xl mb-2 text-green-800">Orden Sugerido</h3>
+                                    <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700">
+                                        <li>Oración para Todos los Días</li>
+                                        <li>Consideración del Día (1-9)</li>
+                                        <li>Oración a la Santísima Virgen</li>
+                                        <li>Oración a San José</li>
+                                        <li>Gozos (Aspiraciones)</li>
+                                        <li>Oración al Niño Jesús</li>
+                                        <li>Villancicos</li>
+                                    </ol>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow border-l-4 border-red-600 flex flex-col justify-center items-center">
+                                    <p class="text-center mb-4 font-semibold text-gray-700">¡Comienza ahora!</p>
+                                    <button onclick="renderView('todos-dias')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition transform hover:scale-105">
+                                        Empezar Novena
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'todos-dias':
+                    html = createPrayerCard(DATA.oracionTodosDias.titulo, DATA.oracionTodosDias.texto, 'bg-white-50', 'border-red-200', DATA.oracionTodosDias.imagen);
+                    html += createNextButton('Ir a las Consideraciones', 'consideraciones');
+                    break;
+
+                case 'virgen':
+                    html = createPrayerCard(DATA.oracionVirgen.titulo, DATA.oracionVirgen.texto, 'bg-white-50', 'border-blue-200', DATA.oracionVirgen.imagen);
+                    html += createNextButton('Ir a Oración a San José', 'san-jose');
+                    break;
+
+                case 'san-jose':
+                    html = createPrayerCard(DATA.oracionSanJose.titulo, DATA.oracionSanJose.texto, 'bg-white-50', 'border-yellow-200', DATA.oracionSanJose.imagen);
+                    html += createNextButton('Ir a los Gozos', 'gozos');
+                    break;
+
+                case 'nino-jesus':
+                    html = createPrayerCard(DATA.oracionNino.titulo, DATA.oracionNino.texto, 'bg-white-50', 'border-green-200', DATA.oracionNino.imagen);
+                    html += createNextButton('Cantar Villancicos', 'villancicos');
+                    break;
+
+                case 'consideraciones':
+                    html = `
+                        <div class="fade-in">
+                            <h2 class="text-2xl font-bold text-center mb-6 text-green-800 serif">Consideraciones Diarias</h2>
+                            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                                ${DATA.dias.map((d, index) => `
+                                    <button onclick="renderDayContent(${index})" class="day-btn bg-white p-4 rounded-xl shadow-sm border border-green-100 hover:bg-green-50 hover:border-green-300 transition-all text-left group">
+                                        <div class="flex items-center justify-between">
+                                            <span class="font-bold text-lg">Día ${d.dia}</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-0 group-hover:opacity-100 text-green-600 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                                        </div>
+                                        <div class="day-subtitle text-sm text-gray-500 font-serif line-clamp-1 group-hover:text-green-700">${d.subtitulo}</div>
+                                        <div class="day-date text-xs text-green-600 font-semibold mt-1">${d.fecha}</div>
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <div id="day-content" class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 relative min-h-[300px] flex items-center justify-center text-gray-400 italic">
+                                Selecciona un día para leer la consideración
+                            </div>
+                             <div class="mt-8 text-center">
+                                <button onclick="renderView('virgen')" class="inline-flex items-center text-red-600 hover:text-red-800 font-semibold">
+                                    Siguiente: Oración a la Virgen <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    // Check if we have a specific day in hash to load? handled by handleHash mostly.
+                    // But if triggered by menu click, we load day 0.
+                    // IMPORTANT: We need to respect if we are here because of a specific day hash request
+                    // The logic in renderDayContent updates the hash.
+
+                    // If we just clicked 'Consideraciones' menu, we go to 0. 
+                    // If we are here from handleHash, we likely called renderView then renderDayContent immediately.
+
+                    // We can defer the default day 0 load only if we aren't already targeting a specific day?
+                    // Simpler: Just rely on the caller (handleHash) to call renderDayContent after this if needed.
+                    // For manual clicks, we default to 0.
+
+                    if (!skipHash) {
+                        setTimeout(() => renderDayContent(0), 0);
+                    }
+                    break;
+
+                case 'gozos':
+                    // If skipHash is true, it means we entered via hash/handleHash, so we might want to respect a specific index set externally or handled via subsequent call.
+                    // Actually, handleHash will call 'changeGozo' or set 'currentGozoIndex' properly.
+                    // Let's rely on handleHash to override this if needed, or make this conditional.
+
+                    // Better approach: renderView just verifies the structure. handleHash does the specific content.
+                    // For manual click, we reset.
+                    if (!skipHash) currentGozoIndex = 0;
+                    html = `
+                        <div class="fade-in max-w-2xl mx-auto flex flex-col h-full">
+                            <h2 class="text-3xl font-bold text-center mb-2 text-red-700 serif">Gozos</h2>
+                            
+                            <!-- Static Chorus -->
+                            <div class="bg-red-100 p-4 rounded-lg text-center mb-6 border border-red-200 shadow-sm">
+                                <span class="text-xs font-bold text-red-800 uppercase tracking-widest block mb-1">Coro (Todos)</span>
+                                <p class="text-red-900 font-bold text-lg italic leading-tight">"${DATA.gozosData.coro}"</p>
+                            </div>
+
+                            <!-- Carousel Container -->
+                            <div id="gozo-card" class="bg-white rounded-xl shadow-xl border-t-8 border-green-600 flex flex-col items-center text-center relative transition-all duration-300 w-full">
+                                <!-- Imagen del Gozo -->
+                                <img id="gozo-img-dynamic" src="${DATA.gozosData.imagen}" class="w-full h-48 object-cover sweet-filter border-b-4 border-yellow-500 flex-shrink-0">
+                                
+                                <span class="absolute top-4 right-4 bg-white/80 rounded-full w-8 h-8 flex items-center justify-center text-green-800 font-bold shadow-sm" id="gozo-number">${currentGozoIndex + 1}</span>
+                                
+                                <div id="gozo-content-wrap" class="p-6 w-full">
+                                    <p id="gozo-text" class="text-xl md:text-2xl font-serif text-gray-800 leading-relaxed mb-6">
+                                        ${DATA.gozosData.estrofas[currentGozoIndex].texto}
+                                    </p>
+                                    <!-- Explanation Block (Hidden by default) -->
+                                    <div id="gozo-explanation" class="hidden bg-yellow-50 p-4 rounded-lg border border-yellow-200 text-sm text-gray-700 italic mb-4 text-left">
+                                        <span class="font-bold text-yellow-700 not-italic block mb-1">💡 Significado:</span>
+                                        <span id="gozo-explanation-text">${DATA.gozosData.estrofas[currentGozoIndex].significado}</span>
+                                    </div>
+                                    
+                                    <button onclick="toggleSignificado()" class="text-xs flex items-center justify-center mx-auto text-green-700 hover:text-green-900 font-semibold bg-green-100 hover:bg-green-200 px-3 py-1 rounded-full transition mb-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        ?
+                                    </button>
+
+                                    <p class="text-sm text-gray-400 mt-2">(Se repite el Coro)</p>
+                                </div>
+                            </div>
+
+                            <!-- Navigation Controls -->
+                            <div class="flex items-center justify-between mt-8 px-4">
+                                <button onclick="changeGozo(-1)" class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-700 transition focus:outline-none">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                </button>
+                                <span class="text-gray-500 font-semibold" id="gozo-indicator">${currentGozoIndex + 1} / ${DATA.gozosData.estrofas.length}</span>
+                                <button onclick="changeGozo(1)" class="p-3 rounded-full bg-green-700 hover:bg-green-800 text-white shadow-lg transition focus:outline-none">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
+                            </div>
+
+                            <div class="mt-8 text-center">
+                                <button onclick="renderView('nino-jesus')" class="text-red-600 hover:text-red-800 font-semibold underline">
+                                    Finalizar Gozos e ir a Oración al Niño
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'villancicos':
+                    html = `
+                        <div class="fade-in">
+                             <div class="relative h-48 rounded-xl overflow-hidden mb-8 shadow-lg">
+                                <img src="${IMAGES.villancicos}" class="w-full h-full object-cover sweet-filter">
+                                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                                    <h2 class="text-3xl font-bold text-white serif">Villancicos Tradicionales</h2>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                ${DATA.villancicos.map(v => `
+                                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-red-500">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <h3 class="text-xl font-bold text-gray-800">${v.titulo}</h3>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-2v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-2m-2 2.181v-4.25" /></svg>
+                                        </div>
+                                        <div class="bg-gray-50 p-4 rounded text-sm text-gray-700 whitespace-pre-line leading-relaxed font-serif">
+                                            ${v.letra}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="mt-12 text-center pb-8">
+                                <button onclick="renderView('inicio')" class="text-gray-500 hover:text-gray-800 underline">Volver al Inicio</button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+
+            contentArea.innerHTML = html;
+            contentArea.innerHTML = html;
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        function toggleSignificado() {
+            const el = document.getElementById('gozo-explanation');
+            el.classList.toggle('hidden');
+        }
+
+        function changeGozo(direction) {
+            const total = DATA.gozosData.estrofas.length;
+            const newIndex = currentGozoIndex + direction;
+
+            if (newIndex >= 0 && newIndex < total) {
+                currentGozoIndex = newIndex;
+                updateHash(`#gozo-${currentGozoIndex + 1}`);
+
+                // Animate change
+                const card = document.getElementById('gozo-card');
+                card.classList.add('opacity-0', 'scale-95');
+
+                setTimeout(() => {
+                    const data = DATA.gozosData.estrofas[currentGozoIndex];
+                    document.getElementById('gozo-text').innerText = data.texto;
+                    document.getElementById('gozo-explanation-text').innerText = data.significado;
+
+                    // Actualizar imagen del gozo
+                    const gozoImg = document.getElementById('gozo-img-dynamic');
+                    if (gozoImg) {
+                        gozoImg.src = data.imagen || DATA.gozosData.imagen;
+                    }
+
+                    // Always hide explanation when changing slide
+                    document.getElementById('gozo-explanation').classList.add('hidden');
+
+                    document.getElementById('gozo-number').innerText = currentGozoIndex + 1;
+                    document.getElementById('gozo-indicator').innerText = `${currentGozoIndex + 1} / ${total}`;
+
+                    card.classList.remove('opacity-0', 'scale-95');
+                }, 200);
+            } else if (newIndex >= total) {
+                // If checking next at the end, suggest moving on
+                const confirmNext = confirm("Has terminado los Gozos. ¿Deseas ir a la Oración al Niño Jesús?");
+                if (confirmNext) renderView('nino-jesus');
+            }
+        }
+
+        function createPrayerCard(title, text, bgClass, borderClass, imageUrl) {
+            return `
+                <div class="fade-in max-w-3xl mx-auto">
+                    <div class=" ${bgClass} rounded-xl shadow-lg border ${borderClass} overflow-hidden">
+                        ${imageUrl ? `<div class="container-image"><img src="${imageUrl}" class="card-image sweet-filter" alt="${title}"></div>` : ''}
+                        
+                        <div class="p-8 relative">
+                             <!-- Optional watermark if no image, but we have images now -->
+                            ${!imageUrl ? `
+                            <div class="absolute -top-6 -right-6 opacity-10 text-gray-700 pointer-events-none">
+                                <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            </div>
+                            ` : ''}
+
+                            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-gray-800 serif relative z-10">${title}</h2>
+                            <div class="prayer-text text-justify relative z-10">
+                                ${text}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createNextButton(text, nextView) {
+            return `
+                <div class="mt-8 flex justify-center fade-in">
+                    <button onclick="renderView('${nextView}')" class="group flex items-center bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-full font-semibold transition shadow-md">
+                        ${text}
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderDayContent(index) {
+            updateHash(`#dia-${index + 1}`);
+            const container = document.getElementById('day-content');
+            if (!container) return;
+
+            const dayData = DATA.dias[index];
+
+            document.querySelectorAll('.day-btn').forEach((btn, i) => {
+                if (i === index) {
+                    btn.classList.remove('bg-white', 'text-green-700', 'hover:bg-green-50');
+                    btn.classList.add('bg-green-700', 'text-white', 'shadow-lg');
+
+                    // Actualizar estilos del texto de fecha cuando está activo
+                    const dateDiv = btn.querySelector('.day-date');
+                    if (dateDiv) {
+                        dateDiv.classList.remove('text-green-600');
+                        dateDiv.classList.add('text-white'); // Force white
+                    }
+
+                    // Styles for subtitle active
+                    const subtitleDiv = btn.querySelector('.day-subtitle');
+                    if (subtitleDiv) {
+                        subtitleDiv.classList.remove('text-gray-500', 'group-hover:text-green-700');
+                        subtitleDiv.classList.add('text-green-200');
+                    }
+
+                } else {
+                    btn.classList.add('bg-white', 'text-green-700', 'hover:bg-green-50');
+                    btn.classList.remove('bg-green-700', 'text-white', 'shadow-lg');
+
+                    // Restaurar estilos del texto de fecha
+                    const dateDiv = btn.querySelector('.day-date');
+                    if (dateDiv) {
+                        dateDiv.classList.remove('text-white');
+                        dateDiv.classList.add('text-green-600');
+                    }
+
+                    // Restore Styles for subtitle inactive
+                    const subtitleDiv = btn.querySelector('.day-subtitle');
+                    if (subtitleDiv) {
+                        subtitleDiv.classList.add('text-gray-500', 'group-hover:text-green-700');
+                        subtitleDiv.classList.remove('text-green-200');
+                    }
+                }
+            });
+
+            container.innerHTML = `
+                <div class="fade-in w-full">
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
+                        <div>
+                            <span class="text-xs font-bold tracking-wider text-green-600 uppercase">Consideración - ${dayData.fecha}</span>
+                            <h3 class="text-2xl font-bold text-gray-800 serif">${dayData.titulo}</h3>
+                        </div>
+                        <span style="width: 30px;" class="text-4xl text-yellow-500 opacity-50 font-serif font-bold">${index + 1}</span>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-600 mb-4">${dayData.subtitulo}</h4>
+                    <div class="prayer-text text-justify text-gray-700">
+                        ${formatText(dayData.texto)}
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatText(raw) {
+            if (!raw) return '';
+
+            // 1. Unir líneas cortadas (saltos de línea simples sin puntuación previa)
+            // Simplemente reemplazamos todos los saltos de línea por espacios primero?
+            // No, porque perderíamos los párrafos reales que se marcan con .\n
+
+            // Reemplazar saltos de línea que marcan fin de párrafo (.\n) por un marcador temporal
+            let formatted = raw.replace(/([.?!])\s*\n/g, '$1###PARAGRAPH###');
+
+            // Reemplazar el resto de saltos de línea (que son cortes de oración) por espacios
+            formatted = formatted.replace(/\n/g, ' ');
+
+            // Reemplazar el marcador por cierre y apertura de párrafo
+            formatted = formatted.replace(/###PARAGRAPH###/g, '</p><p class="mt-4">');
+
+            // Envolver todo en un párrafo inicial y final
+            return `<p>${formatted}</p>`;
+        }
+
+        // --- Hash Navigation Logic ---
+        function updateHash(hash) {
+            if (window.location.hash === hash) return; // Prevent redundant updates
+
+            if (history.pushState) {
+                history.pushState(null, null, hash);
+            } else {
+                location.hash = hash;
+            }
+        }
+
+        function handleHash() {
+            const hash = window.location.hash;
+            console.log("Handling Hash:", hash); // Debug
+
+            if (!hash || hash === '') {
+                renderView('inicio', true);
+                return;
+            }
+
+            if (hash === '#inicio') {
+                renderView('inicio', true);
+            } else if (hash === '#oracion-todos') {
+                renderView('todos-dias', true);
+            } else if (hash.startsWith('#dia-')) {
+                // #dia-1 to #dia-9
+                const dayNum = parseInt(hash.replace('#dia-', ''), 10);
+                if (!isNaN(dayNum) && dayNum >= 1 && dayNum <= 9) {
+                    renderView('consideraciones', true);
+                    renderDayContent(dayNum - 1); // 0-indexed
+                } else {
+                    renderView('consideraciones', true);
+                    renderDayContent(0);
+                }
+            } else if (hash === '#oracion-virgen') {
+                renderView('virgen', true);
+            } else if (hash === '#oracion-san-jose') {
+                renderView('san-jose', true);
+            } else if (hash.startsWith('#gozo-')) {
+                const gozoNum = parseInt(hash.replace('#gozo-', ''), 10);
+                const total = DATA.gozosData.estrofas.length;
+                if (!isNaN(gozoNum) && gozoNum >= 1 && gozoNum <= total) {
+                    currentGozoIndex = gozoNum - 1;
+                    renderView('gozos', true);
+                    setTimeout(() => {
+                        updateGozoUI();
+                    }, 0);
+                } else {
+                    renderView('gozos', true);
+                }
+            } else if (hash === '#oracion-nino') {
+                renderView('nino-jesus', true);
+            } else if (hash === '#villancicos') {
+                renderView('villancicos', true);
+            } else {
+                // Unknown hash, map to inicio
+                renderView('inicio', true);
+            }
+        }
+
+        function updateGozoUI() {
+            const data = DATA.gozosData.estrofas[currentGozoIndex];
+            document.getElementById('gozo-text').innerText = data.texto;
+            document.getElementById('gozo-explanation-text').innerText = data.significado;
+            const gozoImg = document.getElementById('gozo-img-dynamic');
+            if (gozoImg) gozoImg.src = data.imagen || DATA.gozosData.imagen;
+            document.getElementById('gozo-number').innerText = currentGozoIndex + 1;
+            document.getElementById('gozo-indicator').innerText = `${currentGozoIndex + 1} / ${DATA.gozosData.estrofas.length}`;
+        }
+
+        // Use logic from changeGozo but separated
+        // Let's modify changeGozo to use updateGozoUI to avoid code duplication
+
+        // Listen on DOMContentLoaded for faster execution, AND load (as backup/assets)
+        window.addEventListener('DOMContentLoaded', handleHash);
+        // window.addEventListener('load', handleHash); // Duplicate call might be harmless but let's stick to one primary
+        window.addEventListener('hashchange', handleHash);
+        // --- Theme Management ---
+        function setTheme(theme) {
+            document.body.classList.remove('night-mode', 'high-contrast');
+            if (theme === 'night') {
+                document.body.classList.add('night-mode');
+            } else if (theme === 'high-contrast') {
+                document.body.classList.add('high-contrast');
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Initialize Theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        }
+    </script>
+</body>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyD6xIyfTmIlDz-_nwFw_uAkitQuTsvsKSk",
+        authDomain: "novena-col.firebaseapp.com",
+        projectId: "novena-col",
+        storageBucket: "novena-col.firebasestorage.app",
+        messagingSenderId: "444775714094",
+        appId: "1:444775714094:web:d201d04cf29d072a5ffebf",
+        measurementId: "G-LWRXMJN98Q"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+</script>
+
+</html>
