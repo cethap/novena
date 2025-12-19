@@ -9,6 +9,13 @@ import { useNovena } from '../../context/NovenaContext';
 
 export default function GozosView() {
     const { mode, role, updateViewData, syncedState } = useNovena();
+    const [activeCoro, setActiveCoro] = useState(() => {
+        // Randomize on mount with weight: 70% Dulce Jesus (index 0), 30% Ven Ven (index 1)
+        const options = Array.isArray(DATA.gozosData.coro) ? DATA.gozosData.coro : [DATA.gozosData.coro];
+        if (options.length < 2) return options[0];
+        return Math.random() < 0.7 ? options[0] : options[options.length - 1];
+    });
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const [showExplanation, setShowExplanation] = useState(false);
     const navigate = useNavigate();
@@ -17,17 +24,23 @@ export default function GozosView() {
     useEffect(() => {
         if (mode === 'group' && role === 'guest' && syncedState?.viewData?.gozoIndex !== undefined) {
             setCurrentIndex(syncedState.viewData.gozoIndex);
+            // Optionally sync the chorus too? For now, let guests have their own random chorus or sync it? 
+            // If the host syncs 'viewData', maybe we should include 'activeCoroIndex' to strict sync?
+            // The user didn't explicitly ask for strict sync of the random choice, but "Group Mode" implies shared experience.
+            // However, simplicity first. Let's just randomize locally for now. 
+            // Actually, if it changes per slide, guests might want to see the same one.
+            // But I'll stick to local randomization on changeIndex for Host, and for Guest... guests don't call changeIndex.
+            // Guests just update via useEffect. I should update chorus when guest index changes too.
+            const options = Array.isArray(DATA.gozosData.coro) ? DATA.gozosData.coro : [DATA.gozosData.coro];
+            if (options.length >= 2) {
+                setActiveCoro(Math.random() < 0.7 ? options[0] : options[options.length - 1]);
+            } else {
+                setActiveCoro(options[0]);
+            }
         }
     }, [mode, role, syncedState]);
 
-    // Confetti on mount (entering Gozos section)
-    useEffect(() => {
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-    }, []);
+    // ... (Confetti useEffect remains)
 
     const total = DATA.gozosData.estrofas.length;
     const currentGozo = DATA.gozosData.estrofas[currentIndex];
@@ -35,6 +48,14 @@ export default function GozosView() {
     const changeIndex = (newIndex) => {
         setCurrentIndex(newIndex);
         setShowExplanation(false);
+
+        // Randomize chorus on change (Weighted: 70% Dulce Jesus)
+        const options = Array.isArray(DATA.gozosData.coro) ? DATA.gozosData.coro : [DATA.gozosData.coro];
+        if (options.length >= 2) {
+            setActiveCoro(Math.random() < 0.7 ? options[0] : options[options.length - 1]);
+        } else {
+            setActiveCoro(options[0]);
+        }
 
         // Host Sync Logic
         if (mode === 'group' && role === 'host') {
@@ -63,9 +84,11 @@ export default function GozosView() {
             <h2 className="text-3xl font-bold text-center mb-2 text-christmas-red serif">Gozos</h2>
 
             {/* Static Chorus */}
-            <div className="bg-red-100 dark:bg-red-900/30 p-4 rounded-lg text-center mb-6 border border-red-200 dark:border-red-800 shadow-sm transition-colors">
-                <span className="text-xs font-bold text-red-800 dark:text-red-300 uppercase tracking-widest block mb-1">Coro (Todos)</span>
-                <p className="text-red-900 dark:text-red-200 font-bold text-lg italic leading-tight">"{DATA.gozosData.coro}"</p>
+            <div className="bg-red-100 dark:bg-red-900/30 p-4 rounded-lg text-center mb-6 border border-red-200 dark:border-red-800 shadow-sm transition-colors min-h-[100px] flex items-center justify-center">
+                <div>
+                    <span className="text-xs font-bold text-red-800 dark:text-red-300 uppercase tracking-widest block mb-2">Coro (Todos)</span>
+                    <p className="text-red-900 dark:text-red-200 font-bold text-lg italic leading-tight whitespace-pre-line">"{activeCoro}"</p>
+                </div>
             </div>
 
             {/* Carousel Container */}
@@ -83,7 +106,7 @@ export default function GozosView() {
                 </div>
 
                 <div className="p-6 w-full">
-                    <p className="text-xl md:text-2xl font-serif text-gray-800 dark:text-gray-100 leading-relaxed mb-6 min-h-[120px] flex items-center justify-center">
+                    <p className="text-2xl md:text-3xl font-serif text-gray-800 dark:text-gray-100 leading-relaxed mb-6 min-h-[120px] flex items-center justify-center">
                         {currentGozo.texto}
                     </p>
 

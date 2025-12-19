@@ -14,11 +14,11 @@ export default function HomeView() {
                 </div>
                 <div className="relative z-10">
                     <h2 className="text-3xl md:text-5xl text-christmas-red font-bold mb-4 serif">Novena de Aguinaldos</h2>
-                    <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 font-serif">Tradición, Familia y Amor</p>
+                    <p className="text-xl text-gray-600 dark:text-gray-300 mb-6 font-serif">Tradición, Familia y Amor</p>
                     <div className="flex justify-center my-6">
                         <Star className="w-24 h-24 text-christmas-gold" fill="currentColor" />
                     </div>
-                    <p className="max-w-xl mx-auto text-gray-700 dark:text-gray-300">
+                    <p className="max-w-xl mx-auto text-gray-700 dark:text-gray-300 text-lg">
                         Bienvenido a esta guía digital para rezar la Novena. Utiliza el menú para navegar por las oraciones en el orden tradicional.
                     </p>
                 </div>

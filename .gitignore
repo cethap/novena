@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 family-*.png
-.cache
+*.cache

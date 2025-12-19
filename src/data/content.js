@@ -37,7 +37,10 @@ export const DATA = {
         <p class="mt-4 text-center italic text-sm text-gray-600">(Se reza el Padrenuestro, el Avemaría y el Gloria)</p>`
     },
     gozosData: {
-        coro: "Dulce Jesús mío, mi niño adorado, ¡Ven a nuestras almas! ¡Ven no tardes tanto!",
+        coro: [
+            "Dulce Jesús mío, mi niño adorado, ¡Ven a nuestras almas! ¡Ven no tardes tanto!",
+            `Ven, ven, ven.\nVen a nuestras almas\nJesús, ven, ven; ven, ven.\nVen a nuestras almas\nJesús, ven, ven a nuestras almas.\nNo tardes tanto, no tardes tanto,\nJesús, ven, ven; ven, ven.`
+        ],
         imagen: IMAGES.gozos,
         estrofas: [
             {
@@ -111,6 +114,11 @@ export const DATA = {
         imagen: IMAGES.nino,
         texto: `<p class="mb-4">Acordaos, ¡oh dulcísimo Niño Jesús!, que dijisteis a la venerable Margarita del Santísimo Sacramento, y en persona suya a todos vuestros devotos, estas palabras tan consoladoras para nuestra pobre humanidad agobiada y doliente: "Todo lo que quieras pedir, pídelo por los méritos de mi infancia y nada te será negado".</p>
         <p class="mb-4">Llenos de confianza en vos, ¡oh Jesús!, que sois la misma verdad, venimos a exponeros toda nuestra miseria. Ayúdanos a llevar una vida santa, para conseguir una eternidad bienaventurada. Concédenos por los méritos infinitos de vuestra encarnación y de vuestra infancia, la gracia de la cual necesitamos tanto.</p>
+        <div class="my-6 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border-2 border-red-100 dark:border-red-800 text-center transform hover:scale-[1.02] transition-transform">
+            <p class="italic text-lg font-bold text-red-600 dark:text-red-400 leading-relaxed mb-0">
+                (Se hace una pausa para pedir la gracia que se desea conseguir)
+            </p>
+        </div>
         <p class="mb-4">Nos entregamos a vos, ¡oh Niño omnipotente!, seguros de que no quedará frustrada nuestra esperanza, y de que en virtud de vuestra divina promesa, acogeréis y despacharéis favorablemente nuestra súplica.</p>
         <p>Amén.</p>`
     },
@@ -145,20 +153,229 @@ export const DATA = {
     ],
     villancicos: [
         {
-            titulo: "Tutaina",
-            letra: `(Coro)\nTutaina tuturuma\nTutaina tuturumaina\nTutaina tuturuma, turuma\nTutaina tuturumaina.\n\nLos pastores de Belén\nVienen a adorar al Niño;\nLa Virgen y San José\nLos reciben con cariño.\n(Coro)\n\nTres reyes vienen también\nCon incienso, mirra y oro,\nA ofrendar a Dios su Bien\nComo el más grande tesoro.\n(Coro)`
+            titulo: "Noche de Paz",
+            videoId: "AOBOXc-IhqQ",
+            letra: `Noche de paz, noche de amor,
+todo duerme en derredor
+entre sus astros que esparcen su luz
+bella anunciando al niñito Jesús
+brilla la estrella de paz
+brilla la estrella de paz
+
+Noche de paz, noche de amor,
+todo duerme en derredor
+sólo velan en la oscuridad
+los pastores que en el campo están;
+y la estrella de belén
+y la estrella de belén
+
+Noche de paz, noche de amor,
+todo duerme en derredor;
+sobre el santo niño Jesús
+una estrella esparce su luz,
+brilla sobre el rey
+brilla sobre el rey
+
+Noche de paz, noche de amor,
+todo duerme en derredor
+fieles velando allí en Belén
+los pastores, la madre también
+y la estrella de paz.`
         },
         {
-            titulo: "Anton Tiruliru Liru",
-            letra: `(Coro)\nAntón tiruliru liru\nAntón tiruliru la\nAntón tiruliru liru\nAntón tiruliru la\n\nJesús al pesebre\nVamos a adorar\nJesús al pesebre\nVamos a adorar.\n\nDuérmete Niño chiquito\nQue la noche viene ya;\nCierra pronto tus ojitos\nQue el viento te arrullará.\n(Coro)`
+            titulo: "El Tamborilero",
+            videoId: "w21fsV4OWOM",
+            letra: `El camino que lleva a Belén
+baja hasta el valle que la nieve cubrió
+Los pastorcillos quieren ver a su Rey,
+le traen regalos en su humilde zurrón
+al Redentor, al Redentor.
+
+Yo quisiera poner a tus pies
+algún presente que te agrade Señor,
+mas tú ya sabes que soy pobre también,
+y no poseo más que un viejo tambor.
+(Rom pom pom pom, rom pom pom pom)
+¡En tu honor frente al portal tocaré con mí tambor!
+
+El camino que lleva a Belén
+voy marcando con mi viejo tambor,
+nada hay mejor que yo pueda ofrecer,
+su ronco acento es un canto de amor
+al Redentor, al Redentor.
+
+Cuando Dios me vio
+tocando ante él me sonrió.`
+        },
+        {
+            titulo: "A la Nanita Nana",
+            videoId: "gzrYhiI9S38",
+            letra: `Fuentecilla que corres clara y sonora
+ruiseñor que en la selva cantando lloras
+calla mientras la cuna se balancea
+a la nanita nana, nanita ea
+A la nanita nana, nanita nana...
+
+Manojito de rosas y de alelíes
+¿qué es lo que estás soñando que te sonríes?
+cuales son tus sueños, dilo alma mía más,
+¿qué es lo que murmuras? Eucaristía
+A la nanita nana, nanita nana...
+
+Pajaritos y fuentes, auras y brisas
+respetad ese sueño y esas sonrisas
+callad mientras la cuna se balancea
+que el niño está soñando, bendito sea.`
+        },
+        {
+            titulo: "Antón Tiruliru Liru",
+            videoId: "hvFgLesxdTg",
+            letra: `Antóntiruriruriru
+Antón tirulirurá
+Antón tiruriruriru
+Antón tirurirurá
+Jesús al pesebre vamos a
+adorar (bis).
+
+Duérmete niño chiquito
+que la noche viene ya
+cierra pronto tus ojitos
+que el viento te arrullará
+
+Antóntiruriruriru
+Antón tirulirurá
+Antón tiruriruriru
+Antón tirurirurá
+Jesús al pesebre vamos a
+adorar (bis).
+
+Duérmete niño chiquito
+que tu madre velará
+cierra pronto tus ojitos
+porque la entristecerás
+
+Antóntiruriruriru
+Antón tirulirurá
+Antón tiruriruriru
+Antón tirurirurá
+Jesús al pesebre vam`
+        },
+        {
+            titulo: "Tutaina",
+            videoId: "U7tqTHJRM7A",
+            letra: `Tutaina tuturumá
+tutaina tuturumaina
+tutaina tuturumá turumá
+tutaina tuturumaina
+
+Los pastores de Belén
+vienen a adorar al niño
+la Virgen y San José
+los reciben con cariño
+Tutaina...
+
+Tres reyes vienen también
+con incienso, mirra y oro
+a ofrendar a Dios su bien
+como el más grande tesoro
+Tutaina...
+
+Vamos todos a cantar
+con amor y alegría
+porque acaba de llegar
+de los cielos el Mesías
+Tutaina...`
+        },
+        {
+            titulo: "Vamos Pastores",
+            videoId: "g3wPefy-XjU",
+            letra: `Vamos pastores, vamos,
+vamos a Belén,
+a ver en aquel niño
+la gloria del Edén.
+
+Ese precioso niño
+yo me muero por él
+sus ojitos me encantan,
+su boquita también.
+El padre lo acaricia
+la madre mira en él,
+y los dos extasiados
+contemplan aquel ser (bis)
+
+Vamos pastores, vamos...
+
+Yo pobre pastorcillo,
+al niño le diré,
+no la buenaventura:
+eso no puede ser.
+Le diré me perdone
+lo mucho que pequé
+y en la mansión eterna
+un ladito me dé (bis).`
         },
         {
             titulo: "Los Peces en el Río",
-            letra: `La Virgen se está peinando\nEntre cortina y cortina\nLos cabellos son de oro\nY el peine de plata fina.\n\n(Coro)\nPero mira cómo beben los peces en el río\nPero mira cómo beben por ver al Dios nacido\nBeben y beben y vuelven a beber\nLos peces en el río por ver a Dios nacer.`
+            videoId: "YEDg0yB_WP0",
+            letra: `(Coro)
+Pero mira como beben los peces en el río,
+pero mira como beben por ver a Dios nacido,
+Beben y beben y vuelven a beber,
+Los peces en el río por ver a Dios nacer.
+
+La Virgen se está peinando,
+entre cortina y cortina,
+los cabellos son de oro,
+y el peine de plata fina.
+
+(Coro)
+Pero mira como beben los peces en el río,
+pero mira como beben por ver a Dios nacido,
+Beben y beben y vuelven a beber,
+Los peces en el río por ver a Dios nacer.
+
+La Virgen va caminando,
+va caminado solita,
+y no lleva más compaña,
+que el niño de su manita.
+
+(Coro)
+Pero mira como beben los peces en el río,
+pero mira como beben por ver a Dios nacido,
+Beben y beben y vuelven a beber,
+Los peces en el río por ver a Dios nacer.
+
+La Virgen lava pañales,
+y los tiende en el romero,
+los pajarillos cantando,
+y el romero floreciendo.
+
+(Coro)
+Pero mira como beben los peces en el río,
+pero mira como beben por ver a Dios nacido,
+Beben y beben y vuelven a beber,
+Los peces en el río por ver a Dios nacer.`
         },
         {
             titulo: "Mi Burrito Sabanero",
-            letra: `Con mi burrito sabanero, voy camino de Belén\nCon mi burrito sabanero, voy camino de Belén\n\nSi me ven, si me ven, voy camino de Belén\nSi me ven, si me ven, voy camino de Belén\n\nEl lucerito mañanero ilumina mi sendero\nEl lucerito mañanero ilumina mi sendero\n\nSi me ven, si me ven, voy camino de Belén\nSi me ven, si me ven, voy camino de Belén\n\n(Coro)\nTuqui tuqui tuqui tuqui, Tuqui tuqui tuqui ta\nApúrate mi burrito que ya vamos a llegar\nTuqui tuqui tuqui tuqui, Tuqui tuqui tuqui ta\nApúrate mi burrito vamos a ver a Jesús.`
+            videoId: "zqyJ0mSSsR8",
+            letra: `Con mi burrito sabanero, voy camino de Belén
+Con mi burrito sabanero, voy camino de Belén
+
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+
+El lucerito mañanero ilumina mi sendero
+El lucerito mañanero ilumina mi sendero
+
+Si me ven, si me ven, voy camino de Belén
+Si me ven, si me ven, voy camino de Belén
+
+(Coro)
+Tuqui tuqui tuqui tuqui, Tuqui tuqui tuqui ta
+Apúrate mi burrito que ya vamos a llegar
+Tuqui tuqui tuqui tuqui, Tuqui tuqui tuqui ta
+Apúrate mi burrito vamos a ver a Jesús.`
         }
     ]
 };
