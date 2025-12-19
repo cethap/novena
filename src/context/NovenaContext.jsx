@@ -1,13 +1,50 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { roomService } from '../services/roomService';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 
 const NovenaContext = createContext();
 
 export function NovenaProvider({ children }) {
-    const [mode, setMode] = useState('normal'); // 'normal' | 'group'
-    const [role, setRole] = useState(null); // 'host' | 'guest'
-    const [roomCode, setRoomCode] = useState(null);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    // Helper to get initial state with priority: URL -> LocalStorage -> Default
+    const getInitialState = (key, defaultValue) => {
+        // 1. URL Param Logic
+        let paramName = key;
+
+        // Handle aliases
+        if (key === 'roomCode') {
+            if (searchParams.has('room')) paramName = 'room';
+            else if (searchParams.has('code')) paramName = 'code';
+        }
+
+        // Default Role Logic: If we have a room but no role, assume guest
+        if (key === 'role' && !searchParams.get('role')) {
+            const hasRoom = searchParams.get('room') || searchParams.get('code');
+            if (hasRoom) return 'guest';
+        }
+
+        // Get value
+        const param = searchParams.get(paramName);
+        if (param) return param;
+
+        // 2. LocalStorage
+        const storage = localStorage.getItem(`novena_${key}`);
+        if (storage) return storage;
+
+        // 3. Default
+        return defaultValue;
+    };
+
+    const [mode, setMode] = useState(() => {
+        const room = searchParams.get('room') || searchParams.get('code');
+        const storage = localStorage.getItem('novena_mode');
+        return room ? 'group' : (storage || 'normal');
+    });
+
+    const [role, setRole] = useState(() => getInitialState('role', null)); // 'host' | 'guest'
+    const [roomCode, setRoomCode] = useState(() => getInitialState('roomCode', null));
+
     const [syncedState, setSyncedState] = useState(null);
     const [isSyncing, setIsSyncing] = useState(false); // To prevent loop when navigating
 
@@ -50,8 +87,55 @@ export function NovenaProvider({ children }) {
         setRole(null);
         setRoomCode(null);
         setSyncedState(null);
+
+        localStorage.removeItem('novena_mode');
+        localStorage.removeItem('novena_role');
+        localStorage.removeItem('novena_roomCode');
+
+        // Clear params
+        setSearchParams({}, { replace: true });
         navigate('/');
     };
+
+    // Persistence & Sync Effect
+    useEffect(() => {
+        const params = {};
+        let hasChanges = false;
+
+        // Sync Room
+        if (roomCode) {
+            localStorage.setItem('novena_roomCode', roomCode);
+            params.room = roomCode;
+            hasChanges = true;
+        } else {
+            localStorage.removeItem('novena_roomCode');
+        }
+
+        // Sync Role
+        if (role) {
+            localStorage.setItem('novena_role', role);
+            params.role = role;
+            hasChanges = true;
+        } else {
+            localStorage.removeItem('novena_role');
+        }
+
+        // Sync Mode
+        if (mode) {
+            localStorage.setItem('novena_mode', mode);
+        } else {
+            localStorage.removeItem('novena_mode');
+        }
+
+        // Only update search params if we refer to room code
+        if (roomCode) {
+            setSearchParams(params, { replace: true });
+        }
+
+    }, [mode, role, roomCode]);
+
+    // Track last synced view to allow local navigation freedom
+    const lastHostView = useRef(null);
 
     // Subscriptions
     useEffect(() => {
@@ -59,42 +143,54 @@ export function NovenaProvider({ children }) {
             const unsubscribe = roomService.subscribeToRoom(roomCode, (data) => {
                 setSyncedState(data);
 
-                // If I am a GUEST, I should follow the host
+                // If I am a GUEST, I should follow the host ONLY if host changed view
                 if (role === 'guest' && data.currentView) {
-                    // Only navigate if we are not already there
-                    // We check pathname + search to match exactly
-                    const target = data.currentView;
-                    const currentPath = location.pathname + location.search;
+                    const targetHostView = data.currentView;
 
-                    if (target !== currentPath) {
-                        console.log(`[Guest] Syncing to: ${target}`);
-                        setIsSyncing(true);
-                        navigate(target);
+                    // If the HOST location has changed since we last synced
+                    if (targetHostView !== lastHostView.current) {
+                        lastHostView.current = targetHostView;
+
+                        const currentPath = window.location.pathname;
+                        const targetPath = targetHostView.split('?')[0];
+
+                        // Navigate if we aren't already there
+                        if (targetPath !== currentPath) {
+                            console.log(`[Guest] Host moved to ${targetHostView}, syncing...`);
+                            setIsSyncing(true);
+
+                            // Preserve my role/room params
+                            const myParams = new URLSearchParams(window.location.search);
+                            if (roomCode) myParams.set('room', roomCode);
+                            if (role) myParams.set('role', role);
+
+                            navigate(`${targetPath}?${myParams.toString()}`);
+                        }
                     }
                 }
             });
 
             return () => unsubscribe();
         }
-    }, [mode, roomCode, role, navigate, location.pathname, location.search]);
+    }, [mode, roomCode, role, navigate]); // Removed location dependency
 
     // Host Logic: Listen to local navigation and update DB
     useEffect(() => {
         if (role === 'host' && mode === 'group' && roomCode) {
-            const currentPath = location.pathname + location.search;
+            const currentPath = location.pathname;
+            const lastSyncedPath = syncedState?.currentView?.split('?')[0];
 
-            // Only update if path changed, preserve existing viewData unless explicitly changed via updateViewData
-            if (syncedState?.currentView !== currentPath) {
+            if (lastSyncedPath !== currentPath) {
                 console.log(`[Host] Updating room path to: ${currentPath}`);
                 roomService.updateRoomState(roomCode, {
                     currentView: currentPath,
-                    viewData: null // Reset view data on navigation change
+                    viewData: null
                 });
             }
         }
     }, [location, role, mode, roomCode]); // Depend on location changes
 
-    // Helper for views to update their specific state (e.g. active slide)
+    // Helper for views to update their specific state
     const updateViewData = (data) => {
         if (role === 'host' && mode === 'group' && roomCode) {
             roomService.updateRoomState(roomCode, {
@@ -108,7 +204,7 @@ export function NovenaProvider({ children }) {
             mode,
             role,
             roomCode,
-            syncedState, // Expose full synced state to consumers
+            syncedState,
             startGroup,
             joinGroup,
             leaveGroup,

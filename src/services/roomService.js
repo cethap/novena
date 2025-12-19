@@ -23,7 +23,7 @@ export const roomService = {
 
         const initialState = {
             host: 'connected', // Could be a user ID
-            currentView: '/inicio', // Default start
+            currentView: '/', // Default start
             timestamp: Date.now(),
             status: 'waiting'
         };
