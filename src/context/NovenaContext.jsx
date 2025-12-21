@@ -45,6 +45,10 @@ export function NovenaProvider({ children }) {
     const [role, setRole] = useState(() => getInitialState('role', null)); // 'host' | 'guest'
     const [roomCode, setRoomCode] = useState(() => getInitialState('roomCode', null));
 
+    // Personalization
+    const [familyName, setFamilyName] = useState(() => getInitialState('familyName', ''));
+    const [customImage, setCustomImage] = useState(() => getInitialState('image', ''));
+
     const [syncedState, setSyncedState] = useState(null);
     const [isSyncing, setIsSyncing] = useState(false); // To prevent loop when navigating
 
@@ -127,12 +131,42 @@ export function NovenaProvider({ children }) {
             localStorage.removeItem('novena_mode');
         }
 
-        // Only update search params if we refer to room code
-        if (roomCode) {
+        // Sync Personalization
+        if (familyName) {
+            localStorage.setItem('novena_familyName', familyName);
+            params.familyName = familyName;
+            hasChanges = true;
+        } else {
+            localStorage.removeItem('novena_familyName');
+        }
+
+        if (customImage) {
+            localStorage.setItem('novena_image', customImage);
+            params.image = customImage;
+            hasChanges = true;
+        } else {
+            localStorage.removeItem('novena_image');
+        }
+
+        // Only update search params if we refer to room code OR personalization is present
+        if (roomCode || familyName || customImage) {
             setSearchParams(params, { replace: true });
         }
 
-    }, [mode, role, roomCode]);
+    }, [mode, role, roomCode, familyName, customImage]);
+
+    // React to URL changes for Personalization (e.g. if user manually changes URL)
+    useEffect(() => {
+        const urlFamily = searchParams.get('familyName');
+        const urlImage = searchParams.get('image');
+
+        if (urlFamily && urlFamily !== familyName) {
+            setFamilyName(urlFamily);
+        }
+        if (urlImage && urlImage !== customImage) {
+            setCustomImage(urlImage);
+        }
+    }, [searchParams]);
 
     // Track last synced view to allow local navigation freedom
     const lastHostView = useRef(null);
@@ -208,7 +242,8 @@ export function NovenaProvider({ children }) {
             startGroup,
             joinGroup,
             leaveGroup,
-            updateViewData
+            updateViewData,
+            customization: { familyName, customImage }
         }}>
             {children}
         </NovenaContext.Provider>

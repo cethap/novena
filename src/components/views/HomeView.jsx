@@ -3,8 +3,12 @@ import { IMAGES } from '../../data/content';
 import { ArrowRight, Star } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useNovena } from '../../context/NovenaContext';
+
 export default function HomeView() {
     const navigate = useNavigate();
+    const { customization } = useNovena();
+    const { familyName, customImage } = customization || {};
     return (
         <div className="text-center fade-in space-y-8">
             <div className="bg-white/50 dark:bg-gray-800/50 p-8 rounded-xl border-2 border-red-100 dark:border-gray-700 shadow-sm relative overflow-hidden transition-colors">
@@ -27,8 +31,15 @@ export default function HomeView() {
             {/* Family Dedication */}
             <div className="mt-8 bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-xl border border-red-100 dark:border-yellow-900/50 text-center shadow-inner">
                 <div className="max-w-md mx-auto">
-                    <img src={IMAGES.family} className="w-full h-auto rounded-lg shadow-md mb-4 transform hover:scale-105 transition-transform duration-300" alt="Familia Tapasco Zuñiga" />
-                    <p className="text-gray-600 dark:text-gray-400 font-serif italic text-lg">Hecho con amor por la familia Tapasco Zuñiga</p>
+                    <img
+                        src={customImage || IMAGES.family}
+                        className="w-full h-auto rounded-lg shadow-md mb-4 transform hover:scale-105 transition-transform duration-300 object-cover"
+                        alt={familyName ? `Familia ${familyName}` : "Familia Tapasco Zuñiga"}
+                        style={customImage ? { maxHeight: '400px' } : {}}
+                    />
+                    <p className="text-gray-600 dark:text-gray-400 font-serif italic text-lg">
+                        {familyName ? `Hecho con amor por la familia ${familyName}` : "Hecho con amor por la familia Tapasco Zuñiga"}
+                    </p>
                 </div>
             </div>
 
